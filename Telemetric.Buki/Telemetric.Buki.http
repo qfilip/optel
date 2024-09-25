@@ -1,0 +1,6 @@
+@Telemetric.Buki_HostAddress = http://localhost:5184
+
+GET {{Telemetric.Buki_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
