@@ -16,21 +16,19 @@ public static class AzDiagnosticsConfig
     {
         public static void AddSalesMetric(int productId, int price)
         {
-            var labels = new KeyValuePair<string, object?>(Names.ProductId, productId);
+            var labels = new KeyValuePair<string, object?>(Diagnostics.Product.Tags.Id, productId);
 
             SalesValue.Record(price, labels);
             SalesCounter.Add(1, tag: labels);
         }
     }
 
-    public static class Names
+    public static void StartActivity(ProductRequest request)
     {
-        public const string ProductId = "product.id";
-    }
-
-    public static void EnrichProductOrderRequest(this Activity activity, ProductRequest request)
-    {
-        activity.SetTag("product.id", request.Id);
-        activity.SetTag("product.price", request.Price);
+        using var activity = Source.StartActivity(Diagnostics.Product.Activity.Order);
+        
+        activity?.SetTag(Diagnostics.Product.Tags.Id, request.Id);
+        activity?.SetTag(Diagnostics.Product.Tags.Price, request.Price);
+        activity?.SetBaggage(Diagnostics.Product.Tags.Id, request.Id.ToString());
     }
 }
