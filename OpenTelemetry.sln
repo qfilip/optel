@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34928.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telemetric.Az", "Telemetric.Az\Telemetric.Az.csproj", "{2B7AD5AD-1A4B-4A62-87C6-1AFF7B7E046F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telemetric.Shared", "Telemetric.Shared\Telemetric.Shared.csproj", "{CD7E77E8-F9F5-4CF0-B6D7-4B2B8CA1D582}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2B7AD5AD-1A4B-4A62-87C6-1AFF7B7E046F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B7AD5AD-1A4B-4A62-87C6-1AFF7B7E046F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B7AD5AD-1A4B-4A62-87C6-1AFF7B7E046F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B7AD5AD-1A4B-4A62-87C6-1AFF7B7E046F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD7E77E8-F9F5-4CF0-B6D7-4B2B8CA1D582}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD7E77E8-F9F5-4CF0-B6D7-4B2B8CA1D582}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD7E77E8-F9F5-4CF0-B6D7-4B2B8CA1D582}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD7E77E8-F9F5-4CF0-B6D7-4B2B8CA1D582}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {12613922-70B4-48E3-B405-4670515E56AB}
+	EndGlobalSection
+EndGlobal
