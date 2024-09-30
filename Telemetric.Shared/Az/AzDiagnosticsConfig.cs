@@ -23,6 +23,15 @@ public static class AzDiagnosticsConfig
         }
     }
 
+    public static void StartActivity(this Activity? activity, ProductRequest request)
+    {
+        activity?.SetBaggage(Diagnostics.Product.Tags.Id, request.Id.ToString());
+
+        activity?.Start()
+            .SetTag(Diagnostics.Product.Tags.Id, request.Id)
+            .SetTag(Diagnostics.Product.Tags.Price, request.Price);
+    }
+
     public static void StartActivity(ProductRequest request)
     {
         using var activity = Source.StartActivity(Diagnostics.Product.Activity.Order);

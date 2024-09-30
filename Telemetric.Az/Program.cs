@@ -22,9 +22,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.MapGet("/", () => Results.Ok("Working"));
+
 app.MapPost("/order", async ([FromBody] ProductRequest request, [FromServices] BukiClient bukiClient) =>
 {
-    AzDiagnosticsConfig.StartActivity(request);
+    AzDiagnosticsConfig.StartActivity(Activity.Current, request);
     await bukiClient.OrderAsync(request);
     AzDiagnosticsConfig.Metrics.AddSalesRequestMetric(request.Id, request.Price);
 

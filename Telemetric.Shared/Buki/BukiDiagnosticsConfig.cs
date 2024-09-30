@@ -23,12 +23,22 @@ public static class BukiDiagnosticsConfig
         }
     }
 
+    public static void StartActivity(this Activity? activity, ProductRequest request)
+    {
+        var id = activity?.GetBaggageItem(Diagnostics.Product.Tags.Id);
+        Console.WriteLine($"Baggage {id}");
+        
+        activity?.Start()
+            .SetTag(Diagnostics.Product.Tags.Id, id)
+            .SetTag(Diagnostics.Product.Tags.Price, request.Price);
+    }
+
     public static void StartActivity(ProductRequest request)
     {
         using var activity = Source.StartActivity(Diagnostics.Product.Activity.Order);
 
         var id = activity?.GetBaggageItem(Diagnostics.Product.Tags.Id);
-        
+        Console.WriteLine($"Baggage {id}");
         activity?.SetTag(Diagnostics.Product.Tags.Id, id);
         activity?.SetTag(Diagnostics.Product.Tags.Price, request.Price);
     }

@@ -6,7 +6,8 @@
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "BUKI_ADDRESS": "http://localhost:50001"
+        "BUKI_ADDRESS": "http://localhost:50001",
+        "ZIPKIN_HOSTNAME": "zipkin"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:50000"
