@@ -14,10 +14,14 @@ public class BukiClient
     
     public async Task OrderAsync(ProductRequest request)
     {
+        var bukiAddress = Environment.GetEnvironmentVariable("BUKI_ADDRESS");
+        if (bukiAddress == null)
+            throw new InvalidOperationException("Buki address not set in environment");
+
         var message = new HttpRequestMessage();
         
         message.Method = HttpMethod.Post;
-        message.RequestUri = new Uri("http:localhost:50001/order");
+        message.RequestUri = new Uri($"{bukiAddress}/order");
         message.Content = new StringContent(JsonSerializer.Serialize(request), Encoding.UTF8, "application/json");
 
         var response = await _httpClient.SendAsync(message);

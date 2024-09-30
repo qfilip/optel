@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
 using System.Text.Json;
+using Telemetric.Shared.Buki;
 using Telemetric.Shared.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,8 @@ if (app.Environment.IsDevelopment())
 
 app.MapPost("order", ([FromBody] ProductRequest request, [FromServices] IWebHostEnvironment env) =>
 {
+    BukiDiagnosticsConfig.StartActivity(request);
+    
     var data = JsonSerializer.Serialize(request);
     var file = Path.Combine(env.WebRootPath, "orders.txt");
     
@@ -29,6 +32,8 @@ app.MapPost("order", ([FromBody] ProductRequest request, [FromServices] IWebHost
         stream.Write(Encoding.UTF8.GetBytes(data));
     }
 
+    BukiDiagnosticsConfig.Metrics.AddSalesMetric(request.Id, request.Price);
+    
     return Results.Ok();
 });
 

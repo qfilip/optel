@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+      - 9411:9411
+
+  az:
+    build:
+      context: .
+      dockerfile: ./Telemetric.Az/Dockerfile
+    image: optel-az
+    environment:
+      #use docker container port (8080) not the one exposed (5002)
+      - BUKI_ADDRESS=http://buki:8080
+      - ZIPKIN_HOSTNAME=zipkin
+    ports:
+      - 5001:8080
+    depends_on:
+      - buki
+      - zipkin
+
+  buki:
+    build:
+      context: .
+      dockerfile: ./Telemetric.Buki/Dockerfile
+    image: optel-buki
+    environment:
+      - ZIPKIN_HOSTNAME=zipkin
+    restart: on-failure
+    ports:
+      - 5002:8080
+    depends_on:
+      - zipkin

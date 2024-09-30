@@ -1,4 +1,5 @@
-using Microsoft.AspNetCore.Mvc; 
+using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using Telemetric.Az;
 using Telemetric.Shared.Az;
 using Telemetric.Shared.Models;
@@ -25,7 +26,7 @@ app.MapPost("/order", async ([FromBody] ProductRequest request, [FromServices] B
 {
     AzDiagnosticsConfig.StartActivity(request);
     await bukiClient.OrderAsync(request);
-    AzDiagnosticsConfig.Metrics.AddSalesMetric(request.Id, request.Price);
+    AzDiagnosticsConfig.Metrics.AddSalesRequestMetric(request.Id, request.Price);
 
     Results.Ok();
 });

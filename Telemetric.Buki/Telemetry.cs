@@ -2,16 +2,16 @@
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
-using Telemetric.Shared.Az;
+using Telemetric.Shared.Buki;
 
-namespace Telemetric.Az;
+namespace Telemetric.Buki;
 
 public static class Telemetry
 {
     public static void Configure(WebApplicationBuilder builder)
     {
         builder.Logging.AddOpenTelemetry(o => o.AddOtlpExporter());
-        
+
         var zipkinHostName = Environment.GetEnvironmentVariable("ZIPKIN_HOSTNAME");
         if (zipkinHostName == null)
             throw new InvalidOperationException("Zipkin hostname not found");
@@ -22,15 +22,15 @@ public static class Telemetry
             {
                 o.SetResourceBuilder(ResourceBuilder
                     .CreateDefault()
-                    .AddService(AzDiagnosticsConfig.ServiceName))
+                    .AddService(BukiDiagnosticsConfig.ServiceName))
                     .AddOtlpExporter();
             });
         });
 
         builder.Services.AddOpenTelemetry()
-            .ConfigureResource(rb => 
+            .ConfigureResource(rb =>
                 rb
-                    .AddService(AzDiagnosticsConfig.ServiceName)
+                    .AddService(BukiDiagnosticsConfig.ServiceName)
                     .AddAttributes(new List<KeyValuePair<string, object>>
                     {
                         new("env", "dev")
@@ -43,7 +43,7 @@ public static class Telemetry
                     .AddZipkinExporter(b => b.Endpoint = new Uri($"http://{zipkinHostName}:9411/api/v2/spans")))
             .WithMetrics(mpb =>
                 mpb
-                    .AddMeter(AzDiagnosticsConfig.Meter.Name)
+                    .AddMeter(BukiDiagnosticsConfig.Meter.Name)
                     .AddAspNetCoreInstrumentation()
                     .AddHttpClientInstrumentation()
                     .AddOtlpExporter());
